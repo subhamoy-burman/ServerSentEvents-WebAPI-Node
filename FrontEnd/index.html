@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <p id="data"></p>
+
+    <script>
+        var source;
+        document.getElementById('start').addEventListener('click', function() {
+            source = new EventSource('https://localhost:7186/api/events');
+            source.onmessage = function (event) {
+                document.getElementById('data').innerHTML += event.data + '<br>';
+            };
+        });
+
+        document.getElementById('stop').addEventListener('click', function() {
+            source.close();
+        });
+    </script>
+</body>
+</html>
